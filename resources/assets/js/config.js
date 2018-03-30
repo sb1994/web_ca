@@ -1,0 +1,1 @@
+export const apiDomain = 'http://localhost/web_ca/public/'

@@ -50937,7 +50937,7 @@ exports = module.exports = __webpack_require__(45)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -50948,6 +50948,24 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(72);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -50955,7 +50973,67 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      event: {
+        name: "",
+        description: "",
+        img: ""
+      },
+      errorMsg: ""
+    };
+  },
+
+  methods: {
+    addEvent: function addEvent() {
+      var _this = this;
+
+      //console.log('Adding Event');
+      axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* apiDomain */] + "api/addEvent", this.event).then(function (response) {
+        console.log(response.data);
+        if (response.data.status == 200) {
+          alert(response.data.msg);
+          _this.$router.push({ name: "index" });
+        } else {
+          _this.errorMsg = response.data.msg;
+        }
+        //this.event.img = "";
+        //this.$router.push({name:"projects_view"});
+      }).catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+        console.log(error.config);
+      });
+    },
+    onFileChanged: function onFileChanged(event) {
+      var _this2 = this;
+
+      //const files = event.target.files;
+      var fileReader = new FileReader();
+
+      fileReader.readAsDataURL(event.target.files[0]);
+      fileReader.onload = function (event) {
+        _this2.event.img = event.target.result;
+      };
+    }
+  }
+
+});
 
 /***/ }),
 /* 71 */
@@ -50965,18 +51043,85 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { attrs: { id: "create-event" } }, [
+    _c("h1", [_vm._v("Create Event")]),
+    _vm._v(" "),
+    _c("p", { staticClass: "danger" }, [_vm._v(_vm._s(_vm.errorMsg))]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "name" } }, [_vm._v("Name Of the event:")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.event.name,
+            expression: "event.name"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { type: "text" },
+        domProps: { value: _vm.event.name },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.event, "name", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "name" } }, [_vm._v("Event Description:")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.event.description,
+            expression: "event.description"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { type: "text" },
+        domProps: { value: _vm.event.description },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.event, "description", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "img" } }, [_vm._v("Event Image:")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "file" },
+        on: { change: _vm.onFileChanged }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", on: { click: _vm.addEvent } },
+        [_vm._v("Add Event")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("pre", [_vm._v(_vm._s(_vm.event))])
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "create-event" } }, [
-      _c("h1", [_vm._v("Create Event")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -50985,6 +51130,14 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-d085a302", module.exports)
   }
 }
+
+/***/ }),
+/* 72 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return apiDomain; });
+var apiDomain = 'http://localhost/web_ca/public/';
 
 /***/ })
 /******/ ]);
