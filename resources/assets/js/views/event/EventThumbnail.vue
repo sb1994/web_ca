@@ -1,42 +1,30 @@
 <template>
-  
+  <div class="event-thumbnail col-md-4">
+        <p>{{event.name}}</p>
+        <img :src='path + "/storage/img/" + event.img' alt="" class="responsive-img">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-success">Show Event</button>
+                    <button type="button" class="btn btn-danger">Delete event</button>
+                    <button type="button" class="btn btn-warning">Edit Event</button>
+                </div>
+            </div>
+        </div>
+  </div>
 </template>
 <script>
 import {apiDomain} from '../../config';
 export default {
+    props:['event'],
     data(){
         return {
-            events:[]
+            events:[],
+            path:""
         }
     },
     created(){
-       
-        
-        // axios.get(apiDomain)
-        //   .then(response=>{
-        //       this.projects = response.data;
-        //       //console.log(response.data);
-        //       console.log(this.projects);
-        //     }
-        //   )
-        //   .catch(function (error) {
-        //    if (error.response) {
-        //      // The request was made and the server responded with a status code
-        //      // that falls out of the range of 2xx
-        //      console.log(error.response.data);
-        //      console.log(error.response.status);
-        //      console.log(error.response.headers);
-        //    } else if (error.request) {
-        //      // The request was made but no response was received
-        //      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        //      // http.ClientRequest in node.js
-        //      console.log(error.request);
-        //    } else {
-        //      // Something happened in setting up the request that triggered an Error
-        //      console.log('Error', error.message);
-        //    }
-        //    console.log(error.config);
-        //  });
+        this.path = apiDomain
     }
 }
 </script>

@@ -1,12 +1,20 @@
 <template>
   <div id="index">
       <h1>Index Page</h1>
+      <div class="row">
+        <event-thumbnail v-for="event in events" :event="event" :key="event.id"></event-thumbnail>
+      </div>
+      {{events}}
   </div>
 </template>
 
 <script>
-
+import {apiDomain} from '../config';
+import EventThumbnail from './event/EventThumbnail.vue';
 export default {
+  components: {
+    'event-thumbnail' : EventThumbnail
+  },
   data() {
     return {
       events:[]

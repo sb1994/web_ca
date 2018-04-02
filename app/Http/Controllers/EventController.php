@@ -12,10 +12,10 @@ class EventController extends Controller
             $img = $request->file('img');
             //expoles the base64 text for the image
             $exploded = explode(',',$request->img);
-    
+
             //gets the string after the comma
             $decoded = base64_decode($exploded[1]);
-    
+
             //checks the exstention
             if (str_contains($exploded[0],'jpeg')) {
             $extension = 'jpg';
@@ -52,5 +52,10 @@ class EventController extends Controller
                     'msg'=>'Please fill in All data'
                 ]);
         }
-      }
+    }
+    public function getEvents(){
+        $events = Event::All();
+
+        return $events;
+    }
 }
