@@ -8,7 +8,7 @@
 
         <title>Web Ca 2</title>
         <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"> -->
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -24,8 +24,10 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
         
        <script src="{{asset('js/app.js')}}"></script>
-       window.Laravel = <?php echo json_encode([
+      <script>
+           window.Laravel = <?php echo json_encode([
         'csrfToken' => csrf_token(),
         ]); ?>
+      </script>
     </body>
 </html>

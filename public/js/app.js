@@ -50901,7 +50901,7 @@ var render = function() {
     _c("p", [_vm._v(_vm._s(_vm.event.name))]),
     _vm._v(" "),
     _c("img", {
-      staticClass: "responsive-img",
+      staticClass: "img-thumbnail",
       attrs: { src: _vm.path + "/storage/img/" + _vm.event.img, alt: "" }
     }),
     _vm._v(" "),
@@ -51502,7 +51502,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -51513,6 +51513,30 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -51520,7 +51544,71 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      event: {
+        id: this.$route.params.id,
+        name: "",
+        description: "",
+        img: ""
+      },
+      disableImg: "",
+      error: {}
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* apiDomain */] + 'api/getEvent/' + this.$route.params.id).then(function (response) {
+      _this.event = response.data[0];
+      //console.log(this.stored_data);
+    });
+  },
+
+  methods: {
+    editEvent: function editEvent() {
+      var _this2 = this;
+
+      if (this.disableImg) {
+        //console.log('Image Wont be updated');
+        this.event.img = "";
+      }
+      axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* apiDomain */] + "api/editEvent", this.event).then(function (response) {
+        console.log(response.data);
+        _this2.$router.push({ name: "index" });
+      }).catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+        console.log(error.config);
+      });
+    },
+    onFileChanged: function onFileChanged(event) {
+      var _this3 = this;
+
+      //const files = event.target.files;
+      var fileReader = new FileReader();
+      fileReader.readAsDataURL(event.target.files[0]);
+      fileReader.onload = function (event) {
+        _this3.event.img = event.target.result;
+      };
+    }
+  }
+});
 
 /***/ }),
 /* 78 */
@@ -51530,18 +51618,142 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { attrs: { id: "edit-event" } }, [
+    _c("h1", [_vm._v("Edit event Page")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { staticClass: "label-control", attrs: { for: "img" } }, [
+          _vm._v("Event Image:")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "file", id: "img", name: "img", value: "" },
+          on: { change: _vm.onFileChanged }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "disable-img" } }, [
+          _vm._v("\n          Keep Currnent image\n        ")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.disableImg,
+              expression: "disableImg"
+            }
+          ],
+          attrs: { type: "checkbox", name: "disable-img", id: "disable-img" },
+          domProps: {
+            checked: Array.isArray(_vm.disableImg)
+              ? _vm._i(_vm.disableImg, null) > -1
+              : _vm.disableImg
+          },
+          on: {
+            change: function($event) {
+              var $$a = _vm.disableImg,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 && (_vm.disableImg = $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    (_vm.disableImg = $$a
+                      .slice(0, $$i)
+                      .concat($$a.slice($$i + 1)))
+                }
+              } else {
+                _vm.disableImg = $$c
+              }
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { staticClass: "label-control", attrs: { for: "name" } }, [
+          _vm._v("Event Name:")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.event.name,
+              expression: "event.name"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", id: "name", name: "name", value: "" },
+          domProps: { value: _vm.event.name },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.event, "name", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { staticClass: "label-control", attrs: { for: "skill" } }, [
+          _vm._v("Event description:")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.event.description,
+              expression: "event.description"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            name: "description",
+            id: "description",
+            value: ""
+          },
+          domProps: { value: _vm.event.description },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.event, "description", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c(
+          "button",
+          {
+            attrs: { type: "button", name: "button" },
+            on: { click: _vm.editEvent }
+          },
+          [_vm._v("Edit Event")]
+        )
+      ])
+    ]),
+    _vm._v(
+      "\n    " + _vm._s(_vm.event) + "\n    " + _vm._s(_vm.disableImg) + "\n"
+    )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "edit-event" } }, [
-      _c("h1", [_vm._v("Edit event Page")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

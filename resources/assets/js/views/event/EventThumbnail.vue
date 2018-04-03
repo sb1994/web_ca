@@ -1,7 +1,7 @@
 <template>
   <div class="event-thumbnail col-md-4">
-        <p>{{event.name}}</p>
-        <img :src='path + "/storage/img/" + event.img' alt="" class="responsive-img">
+      <p>{{event.name}}</p>
+        <img :src='path + "/storage/img/" + event.img' alt="" class="img-thumbnail">
         <div class="row">
             <div class="col-md-12">
                 <div class="btn-group" role="group" aria-label="Basic example">
@@ -14,7 +14,7 @@
                     <router-link tag="button" class="btn btn-warning" v-bind:to="{name:'edit_event',params:{id:event.id}}">Edit Event</router-link>
                 </div>
             </div>
-        </div>
+        </div>   
   </div>
 </template>
 <script>
