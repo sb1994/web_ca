@@ -34,8 +34,34 @@ export default {
         requestDelete(event){
             //console.log(event.id);
             if (confirm('Are you sure you want to delete this event?'))
-            {
-                console.log(event.id);
+            {   
+                console.log(apiDomain+'api/delete/'+event.id);
+                //sends the event id to the laravel api delte method 
+                axios.delete(apiDomain+'api/delete/'+event.id)
+                     .then(response=>{
+                            //console.log(response.status);
+                            if (response.status == 200) {
+                                console.log(response.data);
+                                // event is emitted to the index to update the screen
+                                this.$emit('requestDelete',event);
+                            }
+                        }
+                    ).catch(function (error) {
+                        if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
+                        console.log(error.response.data);
+                        console.log(error.response.status);
+                        console.log(error.response.headers);
+                        } else if (error.request) {
+                        // The request was made but no response was received
+                        console.log(error.request);
+                        } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log('Error', error.message);
+                        }
+                        console.log(error.config);
+                    });
             }
         }
     }

@@ -13,6 +13,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css">
+        <meta name="csrf-token" id="token" value="{{ csrf_token() }}">
         
     </head>
     <body>
@@ -23,5 +24,8 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
         
        <script src="{{asset('js/app.js')}}"></script>
+       window.Laravel = <?php echo json_encode([
+        'csrfToken' => csrf_token(),
+        ]); ?>
     </body>
 </html>

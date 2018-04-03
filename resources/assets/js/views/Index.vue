@@ -2,7 +2,7 @@
   <div id="index">
       <h1>Index Page</h1>
       <div class="row">
-        <event-thumbnail v-for="event in events" :event="event" :key="event.id"></event-thumbnail>
+        <event-thumbnail v-for="event in events" :event="event" :key="event.id" @requestDelete="deleteEvent"></event-thumbnail>
       </div>
       {{events}}
   </div>
@@ -10,6 +10,7 @@
 
 <script>
 import {apiDomain} from '../config';
+import _ from "lodash";
 import EventThumbnail from './event/EventThumbnail.vue';
 export default {
   components: {
@@ -48,7 +49,9 @@ export default {
          });
   },
   methods:{
-
+    deleteEvent: function(event){
+       this.events = _.without(this.events,event);
+    }
   }
 
 }

@@ -58,4 +58,22 @@ class EventController extends Controller
 
         return $events;
     }
+    public function deleteEvent($id){
+        //return $request;
+        try {
+          $event=Event::find($id);
+          $event->delete();
+          return response()
+              ->json([
+                  'status' => 200
+              ]);
+        } catch (Exception $e) {
+          return response()
+              ->json([
+                  'status' => 404
+              ]);
+        }
+        // $event = Event::find(id);
+        // return $event;
+      }
 }
