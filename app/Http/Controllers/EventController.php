@@ -63,52 +63,10 @@ class EventController extends Controller
         return $event;
     }
     public function editEvent(Request $request){
-        
-
-        // return $event;
-        // //checks if file input is set otherwise
-        // if ($request->img =="") {
-        //   $event->name = $request->name;
-        //   $event->description = $request->description;
-        //   //$event->cover_img = $request->cover_img;
-        //   // $user->name = $request->name;
-        //   return response()
-        //       ->json([
-        //           'sucess' => 200
-        //       ]);
-        // }else{
-        //   $image = $request->file('img');
-        //   //expoles the base64 text for the image
-        //   $exploded = explode(',',$image);
-        //   //gets the string after the comma
-        //   $decoded = base64_decode($exploded[1]);
-        //   //checks the exstention
-        //   if (str_contains($exploded[0],'jpeg')) {
-        //     $extension = 'jpg';
-        //   }else {
-        //     # code...
-        //     $extension = 'png';
-        //   }
-        //   //setting the name that will be stored in the db and with the image
-        //   $fileName = str_random().'.'.$extension;
-        //   //
-        //   $path = public_path()."/storage/img/".$fileName;
-        //   file_put_contents($path,$decoded);
-        //   $event->name = $request->name;
-        //   $event->description = $request->description;
-        //   $event->img = $fileName;
-        //   $event->save();
-        //   return response()
-        //       ->json([
-        //           'sucess' => 200
-        //       ]);
-        // }
         if ($request->img =="") {
             $event  = Event::where('id',$request->id)->first();
           $event->name = $request->name;
           $event->description = $request->description;
-          //$event->img = $request->cover_img;
-          //$user->name = $request->name;
           $event->save();
           return response()
               ->json([
@@ -137,9 +95,6 @@ class EventController extends Controller
         file_put_contents($path,$decoded);
         $event->name = $request->name;
         $event->description = $request->description;
-        //$event->cover_img = $request->cover_img;
-        // $user->name = $request->name;
-        // $user->profile_img = $fileName;
         $event->img = $fileName;
         $event->save();
         return response()
@@ -150,7 +105,6 @@ class EventController extends Controller
         }
       }
     public function deleteEvent($id){
-        //return $request;
         try {
           $event=Event::find($id);
           $event->delete();
@@ -164,7 +118,5 @@ class EventController extends Controller
                   'status' => 404
               ]);
         }
-        // $event = Event::find(id);
-        // return $event;
       }
 }
