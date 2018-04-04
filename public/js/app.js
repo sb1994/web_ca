@@ -51367,7 +51367,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -51378,6 +51378,28 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_comments_EventCommentComposer_vue__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_comments_EventCommentComposer_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__event_comments_EventCommentComposer_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -51385,7 +51407,63 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    'event-comment-composer': __WEBPACK_IMPORTED_MODULE_1__event_comments_EventCommentComposer_vue___default.a
+  },
+  data: function data() {
+    return {
+      event: {
+        id: "",
+        name: "",
+        description: "",
+        img: ""
+      },
+      path: __WEBPACK_IMPORTED_MODULE_0__config__["a" /* apiDomain */]
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* apiDomain */] + 'api/getEvent/' + this.$route.params.id).then(function (response) {
+      _this.event = response.data[0];
+
+      //console.log(this.stored_data);
+    });
+  },
+
+  methods: {
+    updateCommentLog: function updateCommentLog() {
+      var _this2 = this;
+
+      axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* apiDomain */] + "api/getEventCommentsByPid/" + this.$route.params.id).then(function (response) {
+        //console.log(response.data[0]);
+        _this2.event_comments = response.data.event_comments;
+        //this.$router.push({name:"projects_view"});
+        console.log(_this2.event_comments);
+      }).catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+        console.log(error.config);
+      });
+    }
+  }
+});
 
 /***/ }),
 /* 73 */
@@ -51395,18 +51473,51 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "show-event" } }, [
-      _c("h1", [_vm._v("Show event Page")])
+  return _c("div", { attrs: { id: "show-event" } }, [
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-12" },
+        [
+          _c("H1", [_vm._v(_vm._s(_vm.event.name))]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("img", {
+                staticClass: "img-thumbnail",
+                attrs: {
+                  src: _vm.path + "/storage/img/" + _vm.event.img,
+                  alt: ""
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("p", [
+                _vm._v("Event description: " + _vm._s(_vm.event.description))
+              ])
+            ])
+          ])
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-12" },
+        [
+          _c("event-comment-composer", {
+            on: { commentAdded: _vm.updateCommentLog }
+          })
+        ],
+        1
+      )
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -51887,6 +51998,266 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(87)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(89)
+/* template */
+var __vue_template__ = __webpack_require__(90)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-47c88469"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\views\\event\\event_comments\\EventCommentComposer.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-47c88469", Component.options)
+  } else {
+    hotAPI.reload("data-v-47c88469", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(88);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("ab7286e8", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-47c88469\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EventCommentComposer.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-47c88469\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EventCommentComposer.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 89 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			//props:['eventId'],
+			comment: {
+				event_id: this.$route.params.id,
+				comment: "",
+				username: ""
+			},
+			errorComment: ""
+		};
+	},
+
+	methods: {
+		addComment: function addComment() {
+			var _this = this;
+
+			//this.comment.e_id = this.eventId;
+			if (this.comment.comment == "" || this.comment.comment_username == "") {
+				this.errorComment = "Please enter all fields";
+			} else {
+				this.errorComment = "";
+				axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* apiDomain */] + "api/addEventComment", this.comment).then(function (response) {
+					console.log(response.data);
+					_this.comment.comment = "";
+					_this.$emit('commentAdded');
+					//this.$router.push({name:"projects_view"});
+				}).catch(function (error) {
+					if (error.response) {
+						// The request was made and the server responded with a status code
+						// that falls out of the range of 2xx
+						console.log(error.response.data);
+						console.log(error.response.status);
+						console.log(error.response.headers);
+					} else if (error.request) {
+						// The request was made but no response was received
+						// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+						// http.ClientRequest in node.js
+						console.log(error.request);
+					} else {
+						// Something happened in setting up the request that triggered an Error
+						console.log('Error', error.message);
+					}
+					console.log(error.config);
+				});
+			}
+			//console.log(this.comment.p_id);
+		}
+	}
+});
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "event-comment-composer" }, [
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "username" } }, [_vm._v("Username")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.comment.username,
+            expression: "comment.username"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          name: "username",
+          id: "username",
+          placeholder: "Please ente a username"
+        },
+        domProps: { value: _vm.comment.username },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.comment, "username", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.comment.comment,
+            expression: "comment.comment"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { placeholder: "Add comment...", required: "" },
+        domProps: { value: _vm.comment.comment },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.comment, "comment", $event.target.value)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _vm.errorComment
+        ? _c("span", { staticClass: "input", staticStyle: { color: "red" } }, [
+            _vm._v(_vm._s(_vm.errorComment))
+          ])
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c("input", {
+      staticClass: "btn",
+      attrs: { type: "button", value: "Add Comment" },
+      on: { click: _vm.addComment }
+    }),
+    _vm._v(" "),
+    _c("pre", [_vm._v(_vm._s(_vm.comment))])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-47c88469", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
