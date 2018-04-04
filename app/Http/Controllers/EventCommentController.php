@@ -24,4 +24,8 @@ class EventCommentController extends Controller
           );
         }
     }
+    public function getEventCommentsByEid($id){
+        $event_comments = EventComment::where('event_id','=',$id)->get();
+        return response()->json(['event_comments'=>$event_comments]);
+    }
 }

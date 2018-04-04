@@ -13,3 +13,5 @@ Route::post('/editEvent','EventController@editEvent');
 
 //event_comments routes
 Route::post('/addEventComment','EventCommentController@addEventComment');
+Route::get('/getEventCommentsByEid/{id}','EventCommentController@getEventCommentsByEid');
+

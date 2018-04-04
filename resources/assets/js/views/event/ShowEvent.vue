@@ -17,6 +17,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<event-comment-composer  @commentAdded="updateCommentLog"></event-comment-composer>
+				<event-comment-log v-bind:event_comments="event_comments"></event-comment-log>
 			</div>
 		</div>
 		<!-- <pre>{{event}}</pre> -->
@@ -26,9 +27,12 @@
 <script>
 import {apiDomain} from '../../config';
 import EventCommentComposer from './event_comments/EventCommentComposer.vue';
+import EventCommentLog from './event_comments/EventCommentLog.vue';
 export default {
 	components:{
-		'event-comment-composer':EventCommentComposer
+		'event-comment-composer':EventCommentComposer,
+		'event-comment-log':EventCommentLog,
+
 	},
 	data(){
 		return {
@@ -38,6 +42,7 @@ export default {
 				description:"",
 				img:""
 			},
+			event_comments:[],
 			path:apiDomain
 		}
 	},
@@ -45,18 +50,38 @@ export default {
 		axios.get(apiDomain+'api/getEvent/'+this.$route.params.id)
          .then(response=>{
 		   this.event= response.data[0];
-		   
-          //console.log(this.stored_data);
          }
-       )
+	   )
+	   axios.get(apiDomain+"api/getEventCommentsByEid/"+this.$route.params.id)
+             .then(response=>{
+				 console.log(response.data);
+				 
+               this.event_comments=response.data.event_comments;
+               //console.log(this.event_comments);
+             }).catch(function (error) {
+              if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+              } else if (error.request) {
+                // The request was made but no response was received
+                console.log(error.request);
+              } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+              }
+              console.log(error.config);
+            });
 	},
 	methods:{
 		updateCommentLog(){
-        axios.get(apiDomain+"api/getEventCommentsByPid/"+this.$route.params.id)
+        axios.get(apiDomain+"api/getEventCommentsByEid/"+this.$route.params.id)
              .then(response=>{
-               //console.log(response.data[0]);
+				 console.log(response.data);
+				 
                this.event_comments=response.data.event_comments;
-               //this.$router.push({name:"projects_view"});
                console.log(this.event_comments);
              }).catch(function (error) {
               if (error.response) {
@@ -67,8 +92,6 @@ export default {
                 console.log(error.response.headers);
               } else if (error.request) {
                 // The request was made but no response was received
-                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                // http.ClientRequest in node.js
                 console.log(error.request);
               } else {
                 // Something happened in setting up the request that triggered an Error
